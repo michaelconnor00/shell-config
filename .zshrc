@@ -117,17 +117,16 @@ export WORK=$SHOME/Documents/SparkGeo/workspaces
 source /usr/local/bin/activate.sh
 
 # pip should only run if there is a virtualenv currently activated
-#export PIP_REQUIRE_VIRTUALENV=true
+# export PIP_REQUIRE_VIRTUALENV=true
 
 # func to install global pip packages
-gpip(){
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+# gpip(){
+#    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+# }
 
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
 
-#export PATH=$PATH:/Users/michaelconnor/Library/Android/sdk/platform-tools
 export PATH=$PATH:/anaconda/bin
 
 # IDL/ENVI Config
@@ -135,7 +134,7 @@ export IDL_DIR=$HOME/Applications/exelis/idl
 export LM_LICENSE_FILE=$HOME/exelis/license/license.dat
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # direnv helper
 eval "$(direnv hook zsh)"
