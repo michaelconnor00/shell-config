@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/michaelconnor/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -76,6 +76,7 @@ export PATH="$PATH:/opt/X11/bin"
 export PATH="$PATH:/usr/local/git/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/usr/texbin"
+export PATH=$PATH:/anaconda/bin
 
 export EDITOR="nvim"
 
@@ -136,13 +137,6 @@ alias kns="kubens"
 
 # export WORKON_HOME=$HOME/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
-
-export PATH=$PATH:/anaconda/bin
-
-# IDL/ENVI Config
-export IDL_DIR=$HOME/Applications/exelis/idl
-export LM_LICENSE_FILE=$HOME/exelis/license/license.dat
-
 
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
