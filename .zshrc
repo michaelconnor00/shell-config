@@ -138,7 +138,8 @@ alias kns="kubens"
 # export WORKON_HOME=$HOME/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # direnv helper
 eval "$(direnv hook zsh)"
