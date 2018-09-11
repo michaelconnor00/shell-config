@@ -54,7 +54,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker z v fabric aws zsh-autosuggestions)
+plugins=(git docker z fabric zsh-autosuggestions kubectl helm kops terraform)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -71,14 +71,19 @@ autoload -Uz promptinit; promptinit
 prompt pure
 
 # User configuration
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$PATH:/opt/X11/bin"
+export PATH="$PATH:/usr/local/git/bin"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/usr/texbin"
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/go/bin:/usr/texbin"
+export EDITOR="nvim"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Compilation flags
-export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -88,8 +93,7 @@ export ARCHFLAGS="-arch x86_64"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-alias zshrc="nvim ~/.zshrc && source ~/.zshrc"
-alias eenv="nvim .env && source .env"
+alias zshrc="nvim ~/.zshrc"
 
 # Docker functions
 dkrm (){
@@ -110,11 +114,17 @@ export GHP=$HOME/Documents/GitHubProjects
 export VAG=$HOME/Documents/SparkGeo/Vagrant
 export WORK=$SHOME/Documents/SparkGeo/workspaces
 
+# Kubernetes
+for file_name in ~/.kube/*config*; do
+  export KUBECONFIG=$KUBECONFIG:${file_name}
+done
+
+alias k="kubectl"
+alias kctx="kubectx"
+alias kns="kubens"
+
 # GoLang
 # export GOBIN=/usr/local/go/bin
-
-# AutoEnv
-source /usr/local/bin/activate.sh
 
 # pip should only run if there is a virtualenv currently activated
 # export PIP_REQUIRE_VIRTUALENV=true
@@ -139,3 +149,5 @@ export LM_LICENSE_FILE=$HOME/exelis/license/license.dat
 # direnv helper
 eval "$(direnv hook zsh)"
 
+# completions
+eval "$(pipenv --completion)"
