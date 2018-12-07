@@ -20,10 +20,10 @@ CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -32,10 +32,10 @@ CASE_SENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-#ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-#COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -54,7 +54,19 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker z fabric zsh-autosuggestions kubectl helm kops terraform)
+plugins=(
+  git 
+  docker 
+  z 
+  fabric 
+  kubectl 
+  helm 
+  kops 
+  terraform
+  zsh-autosuggestions 
+  history-substring-search
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -71,12 +83,7 @@ autoload -Uz promptinit; promptinit
 prompt pure
 
 # User configuration
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-export PATH="$PATH:/opt/X11/bin"
-export PATH="$PATH:/usr/local/git/bin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/usr/texbin"
-export PATH=$PATH:/anaconda/bin
+# export PATH=$PATH:/anaconda/bin
 
 export EDITOR="nvim"
 
@@ -113,19 +120,31 @@ dkrmv (){
 export SPK=$HOME/Documents/SparkGeo
 export GHP=$HOME/Documents/GitHubProjects
 export VAG=$HOME/Documents/SparkGeo/Vagrant
-export WORK=$SHOME/Documents/SparkGeo/workspaces
+export WORK=$HOME/Documents/SparkGeo/workspaces
 
 # Kubernetes
-for file_name in ~/.kube/*config*; do
+export KUBECONFIG=$HOME/.kube/config
+for file_name in ~/.kube/*config.yaml; do
   export KUBECONFIG=$KUBECONFIG:${file_name}
 done
 
+# https://github.com/superbrothers/zsh-kubectl-prompt
+autoload -U colors; colors
+source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
+RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+
+alias mk="minikube"
 alias k="kubectl"
+alias kg=" kubectl get"
+alias kd="kubectl describe"
 alias kctx="kubectx"
 alias kns="kubens"
 
-# GoLang
-# export GOBIN=/usr/local/go/bin
+# GoLang, homebrew install
+#export $GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+#export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 # pip should only run if there is a virtualenv currently activated
 # export PIP_REQUIRE_VIRTUALENV=true
@@ -145,4 +164,4 @@ alias kns="kubens"
 eval "$(direnv hook zsh)"
 
 # completions
-eval "$(pipenv --completion)"
+#eval "$(pipenv --completion)"
