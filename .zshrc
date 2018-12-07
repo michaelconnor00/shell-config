@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/michaelconnor/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -72,7 +72,7 @@ prompt pure
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/go/bin:/usr/texbin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -89,7 +89,6 @@ export ARCHFLAGS="-arch x86_64"
 # For a full list of active aliases, run `alias`.
 
 alias zshrc="nvim ~/.zshrc && source ~/.zshrc"
-alias eenv="nvim .env && source .env"
 
 # Docker functions
 dkrm (){
@@ -107,35 +106,11 @@ dkrmv (){
 # Personal
 export SPK=$HOME/Documents/SparkGeo
 export GHP=$HOME/Documents/GitHubProjects
-export VAG=$HOME/Documents/SparkGeo/Vagrant
-export WORK=$SHOME/Documents/SparkGeo/workspaces
 
 # GoLang
-# export GOBIN=/usr/local/go/bin
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
 
-# AutoEnv
-source /usr/local/bin/activate.sh
-
-# pip should only run if there is a virtualenv currently activated
-#export PIP_REQUIRE_VIRTUALENV=true
-
-# func to install global pip packages
-gpip(){
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
-
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-
-#export PATH=$PATH:/Users/michaelconnor/Library/Android/sdk/platform-tools
-export PATH=$PATH:/anaconda/bin
-
-# IDL/ENVI Config
-export IDL_DIR=$HOME/Applications/exelis/idl
-export LM_LICENSE_FILE=$HOME/exelis/license/license.dat
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # direnv helper
 eval "$(direnv hook zsh)"
