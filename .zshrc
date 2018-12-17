@@ -1,16 +1,15 @@
-# Path to your oh-my-zsh installation.
+
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="mh"
-#ZSH_THEME="bira"
-#ZSH_THEME="gnzh"
-#ZSH_THEME="terminalparty"
-ZSH_THEME="" # pure theme
+
+## Install Spaceship
+# git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+# ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -20,10 +19,10 @@ CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -32,10 +31,10 @@ CASE_SENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-#ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-#COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -54,31 +53,31 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker z v fabric aws taskwarrior)
+plugins=(
+  git
+  docker
+  z
+  fabric
+  kubectl
+  helm
+  kops
+  terraform
+  zsh-autosuggestions
+  history-substring-search
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-. ~/.oh-my-zsh/z/z.sh
+source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Pure Prompt
-# https://github.com/sindresorhus/pure#getting-started
-autoload -Uz promptinit; promptinit
-
-# optionally define some options
-#PURE_CMD_MAX_EXEC_TIME=10
-
-prompt pure
-
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export EDITOR="nvim"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Compilation flags
-export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -88,7 +87,7 @@ export ARCHFLAGS="-arch x86_64"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-alias zshrc="nvim ~/.zshrc && source ~/.zshrc"
+alias zshrc="nvim ~/.zshrc"
 
 # Docker functions
 dkrm (){
@@ -103,15 +102,48 @@ dkrmv (){
     docker volume rm $(docker volume ls -qf dangling=true) &>/dev/null
 }
 
-# Personal
-export SPK=$HOME/Documents/SparkGeo
-export GHP=$HOME/Documents/GitHubProjects
-
 # GoLang
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
+# Kubernetes
+export KUBECONFIG=$HOME/.kube/config
+for file_name in ~/.kube/*config.yaml; do
+  export KUBECONFIG=$KUBECONFIG:${file_name}
+done
+
+# https://github.com/superbrothers/zsh-kubectl-prompt
+# autoload -U colors; colors
+# source $ZSH/custom/plugins/zsh-kubectl-prompt/kubectl.zsh
+# RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+
+alias mk="minikube"
+alias k="kubectl"
+alias kg="kubectl get"
+alias kd="kubectl describe"
+
+# Cloned repo and symlinked to $HOME/bin
+export PATH=$HOME/bin:$PATH
+alias kctx="kubectx"
+alias kns="kubens"
+
+# GoLang, homebrew install
+#export $GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+#export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+# https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # direnv helper
 eval "$(direnv hook zsh)"
+
+# completions
+eval "$(pipenv --completion)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+eval "$(xmodmap ~/.xmodmap &>/dev/null)"
 
