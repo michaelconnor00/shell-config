@@ -62,9 +62,11 @@ plugins=(
   helm
   kops
   terraform
-  zsh-autosuggestions
-  history-substring-search
-  zsh-syntax-highlighting
+  fzf # https://github.com/junegunn/fzf
+  zsh-autosuggestions # https://github.com/zsh-users/zsh-autosuggestions
+  history-substring-search # https://github.com/zsh-users/zsh-history-substring-search
+  zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting
+  kubetail # https://github.com/johanhaleby/kubetail
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -86,7 +88,6 @@ export LANG=en_US.UTF-8
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-
 alias zshrc="nvim ~/.zshrc"
 
 # Docker functions
@@ -102,36 +103,19 @@ dkrmv (){
     docker volume rm $(docker volume ls -qf dangling=true) &>/dev/null
 }
 
-# GoLang
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
-
 # Kubernetes
 export KUBECONFIG=$HOME/.kube/config
 for file_name in ~/.kube/*config.yaml; do
   export KUBECONFIG=$KUBECONFIG:${file_name}
 done
 
-# https://github.com/superbrothers/zsh-kubectl-prompt
-# autoload -U colors; colors
-# source $ZSH/custom/plugins/zsh-kubectl-prompt/kubectl.zsh
-# RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
-
 alias mk="minikube"
 alias k="kubectl"
 alias kg="kubectl get"
 alias kd="kubectl describe"
 
-# Cloned repo and symlinked to $HOME/bin
-export PATH=$HOME/bin:$PATH
 alias kctx="kubectx"
 alias kns="kubens"
-
-# GoLang, homebrew install
-#export $GOPATH=$HOME/go
-export GOROOT=/usr/local/opt/go/libexec
-#export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
 
 # https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -143,7 +127,4 @@ eval "$(direnv hook zsh)"
 eval "$(pipenv --completion)"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-eval "$(xmodmap ~/.xmodmap &>/dev/null)"
-
+[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh" # This loads nvm
