@@ -19,15 +19,9 @@ Then you can clone this repo to some location and symlink the `.zshrc` file to y
 
 If you want to push your changes so you can use it on other machines, fork this repo first. 
 
-This zsh prompt uses Pure Prompt (https://github.com/sindresorhus/pure). This needs to be install for the shell to load correctly.
+## Prompts
 
-```
-> npm -g install pure-prompt
-```
+Any Prompt can be used. I currently use [Spaceship Prompt](https://denysdovhan.com/spaceship-prompt/) 
 
+Another suggestion is Pure Prompt (https://github.com/sindresorhus/pure). This needs to be install for the shell to load correctly.
 
-## Fish
-
-Requires Fisherman for install plugins.
-
-To Continue.
