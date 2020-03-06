@@ -19,7 +19,7 @@ CASE_SENSITIVE="true"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 export UPDATE_ZSH_DAYS=7
@@ -54,9 +54,13 @@ export UPDATE_ZSH_DAYS=7
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  gitfast
   git
+  brew
   docker
   z
+  npm
+  zsh-better-npm-completion # https://github.com/lukechilds/zsh-better-npm-completion
   fabric
   kubectl
   helm
@@ -105,9 +109,9 @@ dkrmv (){
 
 # Kubernetes
 export KUBECONFIG=$HOME/.kube/config
-for file_name in ~/.kube/*config.yaml; do
-  export KUBECONFIG=$KUBECONFIG:${file_name}
-done
+# for file_name in ~/.kube/*config.yaml; do
+#   export KUBECONFIG=$KUBECONFIG:${file_name}
+# done
 
 alias mk="minikube"
 alias k="kubectl"
@@ -123,8 +127,34 @@ alias kns="kubens"
 # direnv helper
 eval "$(direnv hook zsh)"
 
-# completions
+# Python
+export VENV_ROOT=$HOME/.local/share/virtualenvs
+export PATH="$HOME/.poetry/bin:$PATH"
+fpath+=~/.zfunc
+
+#export NVM_DIR="$HOME/.nvm"
+#[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/home/mikeconnor/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/mikeconnor/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/mikeconnor/anaconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/mikeconnor/anaconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+# <<< conda initialize <<<
+
+# asdf 
+. /home/linuxbrew/.linuxbrew/opt/asdf/asdf.sh
+. /home/linuxbrew/.linuxbrew/opt/asdf/etc/bash_completion.d/asdf.bash
+
 eval "$(pipenv --completion)"
 
-export NVM_DIR="$HOME/.nvm"
-[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh" # This loads nvm
